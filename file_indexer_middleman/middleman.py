@@ -14,8 +14,12 @@ class Middleman(rpyc.Service):
     collect()
 
   def index(self, path):
-    # TODO: Implement indexing logic.
-    pass
+    reader = self.gateway.jvm.com.kebabwarrios.es.Reader()
+    reader.readDocumentsPath(path)
+
+    file_indexer = self.gateway.jvm.com.kebabwarrios.es.FileIndexer(reader.getAllDocuments)
+
+    self.file_indexers.append(file_indexer)
 
   def search(self, query):
     # TODO: Implement search logic.
