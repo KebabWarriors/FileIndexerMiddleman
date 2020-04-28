@@ -13,14 +13,24 @@ class Middleman(rpyc.Service):
   def on_disconnect(self, conn):
     collect()
 
-  def index(self, path):
-    reader = self.gateway.jvm.com.kebabwarrios.es.Reader()
+  def exposed_index(self, path):
+    reader = self.gateway.jvm.com.kebabwarriors.file_indexer.Reader()
     reader.readDocumentsPath(path)
 
-    file_indexer = self.gateway.jvm.com.kebabwarrios.es.FileIndexer(reader.getAllDocuments)
+    file_indexer = self.gateway.jvm.com.kebabwarriors.file_indexer.FileIndexer(
+        reader.getAllDocuments())
 
     self.file_indexers.append(file_indexer)
 
-  def search(self, query):
-    # TODO: Implement search logic.
-    pass
+    return True
+
+  def exposed_search(self, query):
+    result = self.gateway.jvm.com.kebabwarriors.file_indexer.SearchEngine.search(query,
+        self.file_indexers[0].getDocumentsMap(), self.file_indexers[0].getIndexedDocumentsMap())
+
+    payload = {}
+
+    for key in result:
+      payload[key] = result[key]
+
+    return payload

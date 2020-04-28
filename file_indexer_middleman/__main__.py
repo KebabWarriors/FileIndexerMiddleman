@@ -3,6 +3,6 @@ from rpyc.utils.server import ThreadedServer
 
 if __name__ == '__main__':
   middleman = Middleman()
-  server = ThreadedServer(middleman, port=18861)
+  server = ThreadedServer(middleman, port=18861, protocol_config={"allow_public_attrs": True, "allow_all_attrs": True})
   server.start()
 
