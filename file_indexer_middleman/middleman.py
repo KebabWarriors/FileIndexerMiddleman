@@ -17,7 +17,7 @@ class Middleman(rpyc.Service):
     reader = self.gateway.jvm.com.kebabwarriors.fileindexer.DocumentReader()
     reader.readDocumentsPath(path)
 
-    file_indexer = self.gateway.jvm.com.kebabwarriors.fileindexer.FileIndexer(
+    file_indexer = self.gateway.jvm.com.kebabwarriors.fileindexer.Indexer(
         reader.getAllDocuments())
 
     self.file_indexers.append(file_indexer)
