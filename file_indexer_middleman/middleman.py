@@ -14,10 +14,10 @@ class Middleman(rpyc.Service):
     collect()
 
   def exposed_index(self, path):
-    reader = self.gateway.jvm.com.kebabwarriors.file_indexer.DocumentReader()
+    reader = self.gateway.jvm.com.kebabwarriors.fileindexer.DocumentReader()
     reader.readDocumentsPath(path)
 
-    file_indexer = self.gateway.jvm.com.kebabwarriors.file_indexer.FileIndexer(
+    file_indexer = self.gateway.jvm.com.kebabwarriors.fileindexer.FileIndexer(
         reader.getAllDocuments())
 
     self.file_indexers.append(file_indexer)
@@ -25,7 +25,7 @@ class Middleman(rpyc.Service):
     return True
 
   def exposed_search(self, query):
-    result = self.gateway.jvm.com.kebabwarriors.file_indexer.SearchEngine.search(query,
+    result = self.gateway.jvm.com.kebabwarriors.fileindexer.SearchEngine.search(query,
         self.file_indexers[0].getDocumentsMap(), self.file_indexers[0].getIndexedDocumentsMap())
 
     payload = {}
