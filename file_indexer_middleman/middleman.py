@@ -14,7 +14,7 @@ class Middleman(rpyc.Service):
     collect()
 
   def exposed_index(self, path):
-    reader = self.gateway.jvm.com.kebabwarriors.file_indexer.Reader()
+    reader = self.gateway.jvm.com.kebabwarriors.file_indexer.DocumentReader()
     reader.readDocumentsPath(path)
 
     file_indexer = self.gateway.jvm.com.kebabwarriors.file_indexer.FileIndexer(
