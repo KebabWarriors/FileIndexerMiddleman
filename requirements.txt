@@ -1,0 +1,4 @@
+-i https://pypi.org/simple
+plumbum==1.6.9
+py4j==0.10.9
+rpyc==4.1.5
